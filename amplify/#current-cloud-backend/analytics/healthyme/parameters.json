@@ -1,0 +1,11 @@
+{
+    "appName": "healthyme",
+    "roleName": "pinpointLambdaRolefecd9e83",
+    "cloudWatchPolicyName": "cloudWatchPolicyfecd9e83",
+    "pinpointPolicyName": "pinpointPolicyfecd9e83",
+    "authPolicyName": "pinpoint_amplify_fecd9e83",
+    "unauthPolicyName": "pinpoint_amplify_fecd9e83",
+    "authRoleName": "healthye-20181126121015-authRole",
+    "unauthRoleName": "healthye-20181126121015-unauthRole",
+    "IAMPrefix": "946002890932"
+}

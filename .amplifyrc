@@ -1,0 +1,14 @@
+{
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "healthye-20181126121015-authRole",
+            "UnauthRoleArn": "arn:aws:iam::946002890932:role/healthye-20181126121015-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::946002890932:role/healthye-20181126121015-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "healthye-20181126121015-deployment",
+            "UnauthRoleName": "healthye-20181126121015-unauthRole",
+            "StackName": "healthye-20181126121015",
+            "StackId": "arn:aws:cloudformation:eu-central-1:946002890932:stack/healthye-20181126121015/da2172e0-f16b-11e8-9c81-0ac7c3b3e9ea"
+        }
+    }
+}
