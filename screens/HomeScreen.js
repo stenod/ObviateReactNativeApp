@@ -8,77 +8,98 @@ import {
     TouchableOpacity,
     View,
     Button,
+    PixelRatio,
+    PanResponder,
+    Animated,
 } from 'react-native';
 import {WebBrowser} from 'expo';
 
 import {MonoText} from '../components/StyledText';
 import awsconfig from "../aws-exports";
 import Analytics from '@aws-amplify/analytics';
+import Modal from "react-native-modal";
+import RatingScreen from "../screens/RatingScreen"
 
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.handleAnalyticsClick = this.handleAnalyticsClick.bind(this);
-        this.state = {resultHtml: <Text></Text>, eventsSent: 0};
+        this.state = {resultHtml: <Text></Text>, eventsSent: 0,isModalVisible: false
+        };
     };
 
     static navigationOptions = {
-        header: null,
+        title: 'HealthyMe',
     };
+
+    _toggleModal = () =>
+        this.setState({ isModalVisible: !this.state.isModalVisible });
 
     render() {
         return (
-            <View style={styles.container}>
-                <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                    <View style={styles.welcomeContainer}>
-                        <Image
-                            source={
-                                __DEV__
-                                    ? require('../assets/images/robot-dev.png')
-                                    : require('../assets/images/robot-prod.png')
-                            }
-                            style={styles.welcomeImage}
-                        />
-                    </View>
+        <View style={styles.container}>
+            <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+                <View style={styles.welcomeContainer}>
+                    <Image
+                        source={
+                            __DEV__
+                                ? require('../assets/images/robot-dev.png')
+                                : require('../assets/images/robot-prod.png')
+                        }
+                        style={styles.welcomeImage}
+                    />
+                </View>
 
+                <View style={{ flex: 1 }}>
                     <View style={styles.analyticsContainer}>
-                        <Text>Welcome to your React Native App with Amplify!</Text>
-                        <Button title="Generate Analytics Event" onPress={this.handleAnalyticsClick}/>
-                        {this.state.resultHtml}
+                    <Button title="Stimmung tracken" onPress={this._toggleModal}/>
                     </View>
-
-                    <View style={styles.getStartedContainer}>
-                        {this._maybeRenderDevelopmentModeWarning()}
-
-                        <Text style={styles.getStartedText}>Get started by opening</Text>
-
-                        <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-                            <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
+                    <Modal isVisible={this.state.isModalVisible}>
+                        <View style={{ flex: 1 }}>
+                            <RatingScreen/>
+                            <Button title={"Absenden"} onPress={this._toggleModal}>
+                            </Button>
                         </View>
+                    </Modal>
+                </View>
 
-                        <Text style={styles.getStartedText}>
-                            Healthy Me macht voll Spaß
-                        </Text>
+                <View style={styles.analyticsContainer}>
+                    <Text>Welcome to your React Native App with Amplify!</Text>
+                    <Button title="Generate Analytics Event" onPress={this.handleAnalyticsClick}/>
+                    {this.state.resultHtml}
+                </View>
+
+                <View style={styles.getStartedContainer}>
+                    {this._maybeRenderDevelopmentModeWarning()}
+
+                    <Text style={styles.getStartedText}>Get started by opening</Text>
+
+                    <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+                        <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
                     </View>
 
-                    <View style={styles.helpContainer}>
-                        <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-                            <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-                        </TouchableOpacity>
-                    </View>
-                </ScrollView>
+                    <Text style={styles.getStartedText}>
+                        Healthy Me macht voll Spaß
+                    </Text>
+                </View>
 
-                <View style={styles.tabBarInfoContainer}>
-                    <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
+                <View style={styles.helpContainer}>
+                    <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
+                        <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
 
-                    <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-                        <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-                    </View>
+            <View style={styles.tabBarInfoContainer}>
+                <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
+
+                <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+                    <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
                 </View>
             </View>
-        );
-    }
+        </View>
+        )};
 
     _maybeRenderDevelopmentModeWarning() {
         if (__DEV__) {
@@ -115,8 +136,8 @@ export default class HomeScreen extends React.Component {
 
     handleAnalyticsClick() {
         Analytics.record('AWS Amplify Tutorial Event')
-            .then( (evt) => {
-                const url = 'https://console.aws.amazon.com/pinpoint/home/?region=us-east-1#/apps/'+awsconfig.aws_mobile_analytics_app_id+'/analytics/events';
+            .then((evt) => {
+                const url = 'https://console.aws.amazon.com/pinpoint/home/?region=us-east-1#/apps/' + awsconfig.aws_mobile_analytics_app_id + '/analytics/events';
                 let result = (
                     <View>
                         <Text>Event Submitted.</Text>
@@ -132,6 +153,9 @@ export default class HomeScreen extends React.Component {
             });
     };
 }
+
+const size = 42;
+
 
 const styles = StyleSheet.create({
     container: {
@@ -228,5 +252,5 @@ const styles = StyleSheet.create({
     },
     link: {
         color: 'blue'
-    }
+    },
 });
