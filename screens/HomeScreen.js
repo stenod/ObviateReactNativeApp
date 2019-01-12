@@ -5,6 +5,7 @@ import {
     ScrollView,
     StyleSheet,
     Text,
+    FlatList,
     TouchableOpacity,
     View,
     Button,
@@ -21,6 +22,7 @@ import Modal from "react-native-modal";
 import RatingScreen from "../screens/RatingScreen"
 
 
+
 export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -29,9 +31,7 @@ export default class HomeScreen extends React.Component {
         };
     };
 
-    static navigationOptions = {
-        title: 'HealthyMe',
-    };
+
 
     _toggleModal = () =>
         this.setState({ isModalVisible: !this.state.isModalVisible });
@@ -41,15 +41,36 @@ export default class HomeScreen extends React.Component {
         <View style={styles.container}>
             <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
                 <View style={styles.welcomeContainer}>
-                    <Image
+                  {/*  <Image
                         source={
                             __DEV__
-                                ? require('../assets/images/robot-dev.png')
-                                : require('../assets/images/robot-prod.png')
+                                 ? require('../assets/images/logo.png')
+                                 : require('../assets/images/logo.png')
                         }
                         style={styles.welcomeImage}
-                    />
+                    />*/}
                 </View>
+
+                <View style={styles.card}>
+                    <Image style={{}} source={require('../assets/images/purple.png')} />
+                    <Button color="#000" title="Stimmung" style={styles.bold} onPress={this._toggleModal}/>
+                </View>
+
+                <View style={styles.card}>
+                    <Image source={require('../assets/images/yellow.png')} />
+                    <Button color="#000" title="Aktivität" style={styles.bold} onPress={this._toggleModal}/>
+                </View>
+
+                <View style={styles.card}>
+                    <Image source={require('../assets/images/pink.png')} />
+                    <Button color="#000" title="Schlaf" style={styles.bold} onPress={this._toggleModal}/>
+                </View>
+
+                <View style={styles.card}>
+                    <Image source={require('../assets/images/orange.png')} />
+                    <Button color="#000" title="Stresspegel" style={styles.bold} onPress={this._toggleModal}/>
+                </View>
+
 
                 <View style={{ flex: 1 }}>
                     <View style={styles.analyticsContainer}>
@@ -160,7 +181,6 @@ const size = 42;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
     },
     developmentModeText: {
         marginBottom: 20,
@@ -253,4 +273,22 @@ const styles = StyleSheet.create({
     link: {
         color: 'blue'
     },
+    item: {
+        padding: 10,
+        fontSize: 18,
+        height: 44,
+    },
+    card: {
+        backgroundColor: '#fff',
+        marginBottom: 20,
+        borderColor: '#000',
+        borderRadius: 10,
+        paddingTop: 20,
+        paddingBottom: 20,
+        fontWeight: 'bold'
+    },
+    bold: {
+        fontWeight: 'bold',
+        color: '#000',
+    }
 });
