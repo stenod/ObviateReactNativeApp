@@ -6,7 +6,7 @@ export default class LinksScreen extends React.Component {
   static navigationOptions = {
     title: 'Auswertung',
     headerStyle: {
-      backgroundColor: '#f4511e',
+      backgroundColor: 'black',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
   },
 });

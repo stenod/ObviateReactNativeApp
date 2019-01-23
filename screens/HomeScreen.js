@@ -34,7 +34,7 @@ export default class HomeScreen extends React.Component {
     static navigationOptions = {
         title: 'Obviate',
         headerStyle: {
-            backgroundColor: '#f4511e',
+            backgroundColor: 'black',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -69,7 +69,7 @@ export default class HomeScreen extends React.Component {
 
     render() {
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container} contentContainerStyle={{ flexGrow: 1 }}>
                 <View style={styles.card}>
                     <Button title="POST" onPress={this.post}/>
                     <Button title="GET" onPress={this.get}/>
@@ -112,24 +112,6 @@ export default class HomeScreen extends React.Component {
                 </View>
 
 
-                <View style={{flex: 1}}>
-                    <View style={styles.analyticsContainer}>
-                        <Button title="Stimmung tracken" onPress={this._toggleModal}/>
-                    </View>
-                    <Modal isVisible={this.state.isModalVisible}>
-                        <View style={{flex: 1}}>
-                            <RatingScreen/>
-                            <Button title={"Absenden"} onPress={this._toggleModal}>
-                            </Button>
-                        </View>
-                    </Modal>
-                </View>
-
-                <View style={styles.analyticsContainer}>
-                    <Text>Welcome to your React Native App with Amplify!</Text>
-                    <Button title="Generate Analytics Event" onPress={this.handleAnalyticsClick}/>
-                    {this.state.resultHtml}
-                </View>
 
                 <View style={styles.getStartedContainer}>
                     {this._maybeRenderDevelopmentModeWarning()}
@@ -328,8 +310,12 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         fontWeight: 'bold',
         flexDirection: "row",
-        flex: 2,
+        flex: 1,
         textAlignVertical: 'center',
+        shadowColor: 'black',
+        shadowOffset: {height: -3},
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
     },
     bold: {
         fontWeight: 'bold',

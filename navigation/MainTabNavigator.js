@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, StyleSheet} from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -12,7 +12,7 @@ const HomeStack = createStackNavigator({
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Obviate',
+  tabBarLabel: ' ',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -22,6 +22,14 @@ HomeStack.navigationOptions = {
       }
     />
   ),
+    tabBarOptions: {
+        activeTintColor: 'white',
+            style: {
+                height: 80,
+            backgroundColor: 'black',
+
+        },
+    }
 };
 
 const LinksStack = createStackNavigator({
@@ -29,13 +37,20 @@ const LinksStack = createStackNavigator({
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Auswertung',
+  tabBarLabel: ' ',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={Platform.OS === 'ios' ? 'ios-analytics' : 'md-analytics'}
     />
   ),
+    tabBarOptions: {
+        activeTintColor: 'white',
+        style: {
+            height: 70,
+            backgroundColor: 'black',
+        },
+    }
 };
 
 const SettingsStack = createStackNavigator({
@@ -43,14 +58,36 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Einstellungen',
+  tabBarLabel: ' ',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
     />
   ),
+    tabBarOptions: {
+        activeTintColor: 'white',
+        style: {
+            height: 70,
+            backgroundColor: 'black',
+        },
+    }
 };
+
+const styles = StyleSheet.create({
+    container: {
+        borderRadius: 4,
+        borderWidth: 0.5,
+        borderColor: '#d6d7da',
+    },
+    title: {
+        fontSize: 19,
+        fontWeight: 'bold',
+    },
+    activeTitle: {
+        color: 'red',
+    },
+});
 
 export default createBottomTabNavigator({
   HomeStack,
