@@ -26,8 +26,7 @@ export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.handleAnalyticsClick = this.handleAnalyticsClick.bind(this);
-        this.state = {
-            resultHtml: <Text></Text>, eventsSent: 0, isModalVisible: false
+        this.state = {resultHtml: <Text></Text>, eventsSent: 0,isModalVisible: false
         };
     };
 
@@ -61,22 +60,22 @@ export default class HomeScreen extends React.Component {
                 {/*</View>*/}
 
                 <View style={styles.card}>
-                    <Image style={{}} source={require('../assets/images/purple.png')}/>
+                    <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'flex-start'}} source={require('../assets/images/purple.png')} />
                     <Button color="#000" title="Stimmung" style={styles.bold} onPress={this._toggleModal}/>
                 </View>
 
                 <View style={styles.card}>
-                    <Image source={require('../assets/images/yellow.png')}/>
+                    <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'flex-start'}} source={require('../assets/images/yellow.png')} />
                     <Button color="#000" title="Aktivität" style={styles.bold} onPress={this._toggleModal}/>
                 </View>
 
                 <View style={styles.card}>
-                    <Image source={require('../assets/images/pink.png')}/>
+                    <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'flex-start'}} source={require('../assets/images/pink.png')} />
                     <Button color="#000" title="Schlaf" style={styles.bold} onPress={this._toggleModal}/>
                 </View>
 
                 <View style={styles.card}>
-                    <Image source={require('../assets/images/orange.png')}/>
+                    <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'flex-start'}} source={require('../assets/images/orange.png')} />
                     <Button color="#000" title="Stresspegel" style={styles.bold} onPress={this._toggleModal}/>
                 </View>
 
@@ -295,7 +294,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingTop: 20,
         paddingBottom: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        flexDirection: "row",
+        marginLeft: 'auto',
     },
     bold: {
         fontWeight: 'bold',
