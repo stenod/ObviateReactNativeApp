@@ -5,6 +5,13 @@ import { ExpoLinksView } from '@expo/samples';
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
     title: 'Auswertung',
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
   };
 
   render() {

@@ -22,62 +22,71 @@ import Modal from "react-native-modal";
 import RatingScreen from "../screens/RatingScreen"
 
 
-
 export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.handleAnalyticsClick = this.handleAnalyticsClick.bind(this);
-        this.state = {resultHtml: <Text></Text>, eventsSent: 0,isModalVisible: false
+        this.state = {
+            resultHtml: <Text></Text>, eventsSent: 0, isModalVisible: false
         };
     };
 
+    static navigationOptions = {
+        title: 'Obviate',
+        headerStyle: {
+            backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
 
 
     _toggleModal = () =>
-        this.setState({ isModalVisible: !this.state.isModalVisible });
+        this.setState({isModalVisible: !this.state.isModalVisible});
 
     render() {
         return (
-        <View style={styles.container}>
-            <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                <View style={styles.welcomeContainer}>
-                  {/*  <Image
-                        source={
-                            __DEV__
-                                 ? require('../assets/images/logo.png')
-                                 : require('../assets/images/logo.png')
-                        }
-                        style={styles.welcomeImage}
-                    />*/}
-                </View>
+            <ScrollView style={styles.container}>
+                {/*<View style={styles.welcomeContainer}>*/}
+                    {/*/!*  <Image*/}
+                        {/*source={*/}
+                            {/*__DEV__*/}
+                                 {/*? require('../assets/images/logo.png')*/}
+                                 {/*: require('../assets/images/logo.png')*/}
+                        {/*}*/}
+                        {/*style={styles.welcomeImage}*/}
+                    {/*/>*!/*/}
+                {/*</View>*/}
 
                 <View style={styles.card}>
-                    <Image style={{}} source={require('../assets/images/purple.png')} />
+                    <Image style={{}} source={require('../assets/images/purple.png')}/>
                     <Button color="#000" title="Stimmung" style={styles.bold} onPress={this._toggleModal}/>
                 </View>
 
                 <View style={styles.card}>
-                    <Image source={require('../assets/images/yellow.png')} />
+                    <Image source={require('../assets/images/yellow.png')}/>
                     <Button color="#000" title="Aktivität" style={styles.bold} onPress={this._toggleModal}/>
                 </View>
 
                 <View style={styles.card}>
-                    <Image source={require('../assets/images/pink.png')} />
+                    <Image source={require('../assets/images/pink.png')}/>
                     <Button color="#000" title="Schlaf" style={styles.bold} onPress={this._toggleModal}/>
                 </View>
 
                 <View style={styles.card}>
-                    <Image source={require('../assets/images/orange.png')} />
+                    <Image source={require('../assets/images/orange.png')}/>
                     <Button color="#000" title="Stresspegel" style={styles.bold} onPress={this._toggleModal}/>
                 </View>
 
 
-                <View style={{ flex: 1 }}>
+                <View style={{flex: 1}}>
                     <View style={styles.analyticsContainer}>
-                    <Button title="Stimmung tracken" onPress={this._toggleModal}/>
+                        <Button title="Stimmung tracken" onPress={this._toggleModal}/>
                     </View>
                     <Modal isVisible={this.state.isModalVisible}>
-                        <View style={{ flex: 1 }}>
+                        <View style={{flex: 1}}>
                             <RatingScreen/>
                             <Button title={"Absenden"} onPress={this._toggleModal}>
                             </Button>
@@ -110,17 +119,18 @@ export default class HomeScreen extends React.Component {
                         <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
                     </TouchableOpacity>
                 </View>
+
+                <View style={styles.tabBarInfoContainer}>
+                    <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
+
+                    <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+                        <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
+                    </View>
+                </View>
             </ScrollView>
 
-            <View style={styles.tabBarInfoContainer}>
-                <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-                <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-                    <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-                </View>
-            </View>
-        </View>
-        )};
+        )
+    };
 
     _maybeRenderDevelopmentModeWarning() {
         if (__DEV__) {
