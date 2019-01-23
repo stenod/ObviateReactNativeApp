@@ -156,12 +156,12 @@
 				}
 			}
 		},
-		"storageuserApi": {
+		"storagehealthyMeStorage": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/storage/userApi-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/storage/healthyMeStorage-cloudformation-template.json",
 				"Parameters": {
-					"tableName": "userApi",
+					"tableName": "healthyMeStorage",
 					"partitionKeyName": "id",
 					"partitionKeyType": "S"
 				}
@@ -187,20 +187,40 @@
 				}
 			}
 		},
+		"functionhealthymed45f17cf": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/function/healthymed45f17cf-cloudformation-template.json",
+				"Parameters": {
+					"storagehealthyMeStorageName": {
+						"Fn::GetAtt": [
+							"storagehealthyMeStorage",
+							"Outputs.Name"
+						]
+					},
+					"storagehealthyMeStorageArn": {
+						"Fn::GetAtt": [
+							"storagehealthyMeStorage",
+							"Outputs.Arn"
+						]
+					}
+				}
+			}
+		},
 		"apihealthyMeApi": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
 				"TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/api/healthyMeApi-cloudformation-template.json",
 				"Parameters": {
-					"functionhealthyMeLambdaFunctionName": {
+					"functionhealthymed45f17cfName": {
 						"Fn::GetAtt": [
-							"functionhealthyMeLambdaFunction",
+							"functionhealthymed45f17cf",
 							"Outputs.Name"
 						]
 					},
-					"functionhealthyMeLambdaFunctionArn": {
+					"functionhealthymed45f17cfArn": {
 						"Fn::GetAtt": [
-							"functionhealthyMeLambdaFunction",
+							"functionhealthymed45f17cf",
 							"Outputs.Arn"
 						]
 					}

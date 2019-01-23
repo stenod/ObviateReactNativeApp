@@ -15,14 +15,14 @@ const awsmobile =  {
             "region": "eu-central-1"
         },
         {
-            "tableName": "userApi",
+            "tableName": "healthyMeStorage",
             "region": "eu-central-1"
         }
     ],
     "aws_cloud_logic_custom": [
         {
             "name": "healthyMeApi",
-            "endpoint": "https://2m641lsks6.execute-api.eu-central-1.amazonaws.com/Prod",
+            "endpoint": "https://0hc3fb4z1k.execute-api.eu-central-1.amazonaws.com/Prod",
             "region": "eu-central-1"
         }
     ]

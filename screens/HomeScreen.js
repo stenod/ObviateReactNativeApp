@@ -20,7 +20,7 @@ import awsconfig from "../aws-exports";
 import Analytics from '@aws-amplify/analytics';
 import Modal from "react-native-modal";
 import RatingScreen from "../screens/RatingScreen"
-import { API } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
 
 
 export default class HomeScreen extends React.Component {
@@ -47,11 +47,12 @@ export default class HomeScreen extends React.Component {
         this.setState({isModalVisible: !this.state.isModalVisible});
 
     post = async () => {
+        this.setState({isModalVisible: false});
         console.log('calling api');
         const response = await API.post('healthyMeApi', '/items', {
             body: {
-                id: '1',
-                name: 'hello amplify!'
+                id: "1",
+                value: {stresslevel: 4},
             }
         });
         alert(JSON.stringify(response, null, 2));
