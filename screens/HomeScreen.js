@@ -48,35 +48,40 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                {/*<View style={styles.welcomeContainer}>*/}
-                    {/*/!*  <Image*/}
-                        {/*source={*/}
-                            {/*__DEV__*/}
-                                 {/*? require('../assets/images/logo.png')*/}
-                                 {/*: require('../assets/images/logo.png')*/}
-                        {/*}*/}
-                        {/*style={styles.welcomeImage}*/}
-                    {/*/>*!/*/}
-                {/*</View>*/}
-
                 <View style={styles.card}>
-                    <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'flex-start'}} source={require('../assets/images/purple.png')} />
-                    <Button color="#000" title="Stimmung" style={styles.bold} onPress={this._toggleModal}/>
+                    <View style={{marginLeft: 15, alignSelf: 'flex-start'}}>
+                        <Image style={{width: 50, height: 50, resizeMode: 'contain', alignSelf: 'stretch'}} source={require('../assets/images/purple.png')} />
+                    </View>
+                    <View style={{ width: 120, alignSelf: 'flex-start'}}>
+                        <Button color="#000" title="Stimmung" style={styles.bold} onPress={this._toggleModal}/>
+                    </View>
                 </View>
 
                 <View style={styles.card}>
-                    <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'flex-start'}} source={require('../assets/images/yellow.png')} />
-                    <Button color="#000" title="Aktivität" style={styles.bold} onPress={this._toggleModal}/>
+                    <View style={{marginLeft: 15, alignSelf: 'flex-start'}}>
+                        <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'stretch'}} source={require('../assets/images/yellow.png')} />
+                    </View>
+                    <View style={{ width: 120, alignSelf: 'flex-start'}}>
+                        <Button color="#000" title="Aktivität" style={styles.bold} onPress={this._toggleModal}/>
+                    </View>
                 </View>
 
                 <View style={styles.card}>
-                    <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'flex-start'}} source={require('../assets/images/pink.png')} />
+                    <View style={{marginLeft: 15, alignSelf: 'flex-start'}}>
+                        <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'flex-start'}} source={require('../assets/images/pink.png')} />
+                    </View>
+                    <View style={{ width: 120, alignSelf: 'flex-start'}}>
                     <Button color="#000" title="Schlaf" style={styles.bold} onPress={this._toggleModal}/>
+                    </View>
                 </View>
 
                 <View style={styles.card}>
-                    <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'flex-start'}} source={require('../assets/images/orange.png')} />
-                    <Button color="#000" title="Stresspegel" style={styles.bold} onPress={this._toggleModal}/>
+                    <View style={{marginLeft: 15, alignSelf: 'flex-start'}}>
+                        <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'flex-start'}} source={require('../assets/images/orange.png')} />
+                    </View>
+                    <View style={{ width: 120, alignSelf: 'flex-start'}}>
+                        <Button color="#000" title="Stresspegel" style={styles.bold} onPress={this._toggleModal}/>
+                    </View>
                 </View>
 
 
@@ -296,10 +301,12 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         fontWeight: 'bold',
         flexDirection: "row",
-        marginLeft: 'auto',
+        flex: 2,
+        textAlignVertical: 'center',
     },
     bold: {
         fontWeight: 'bold',
         color: '#000',
+        textAlignVertical: 'center',
     }
 });
