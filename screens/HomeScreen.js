@@ -70,6 +70,11 @@ export default class HomeScreen extends React.Component {
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.card}>
+                    <Button title="POST" onPress={this.post}/>
+                    <Button title="GET" onPress={this.get}/>
+                    <Button title="LIST" onPress={this.list}/>
+                </View>
+                <View style={styles.card}>
                     <View style={{marginLeft: 15, alignSelf: 'flex-start'}}>
                         <Image style={{width: 50, height: 50, resizeMode: 'contain', alignSelf: 'stretch'}} source={require('../assets/images/purple.png')} />
                     </View>
