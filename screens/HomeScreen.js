@@ -20,6 +20,7 @@ import awsconfig from "../aws-exports";
 import Analytics from '@aws-amplify/analytics';
 import Modal from "react-native-modal";
 import RatingScreen from "../screens/RatingScreen"
+import { API } from 'aws-amplify';
 
 
 export default class HomeScreen extends React.Component {
