@@ -2,10 +2,28 @@ AWSTemplateFormatVersion: 2010-09-09
 
 Parameters:
     
-  resourceName:
+  identityPoolName:
+    Type: String
+              
+  allowUnauthenticatedIdentities:
     Type: String
             
-  authSelections:
+  thirdPartyAuth:
+    Type: String
+          
+  lambdaLogPolicy:
+    Type: String
+            
+  openIdLambdaRoleName:
+    Type: String
+            
+  openIdRolePolicy:
+    Type: String
+            
+  openIdLambdaIAMPolicy:
+    Type: String
+            
+  openIdLogPolicy:
     Type: String
             
   userPoolName:
@@ -89,28 +107,10 @@ Parameters:
   userpoolClientSetAttributes:
     Type: String
           
-  identityPoolName:
-    Type: String
-              
-  allowUnauthenticatedIdentities:
+  resourceName:
     Type: String
             
-  thirdPartyAuth:
-    Type: String
-          
-  lambdaLogPolicy:
-    Type: String
-            
-  openIdLambdaRoleName:
-    Type: String
-            
-  openIdRolePolicy:
-    Type: String
-            
-  openIdLambdaIAMPolicy:
-    Type: String
-            
-  openIdLogPolicy:
+  authSelections:
     Type: String
             
   useDefault:

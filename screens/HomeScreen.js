@@ -45,6 +45,27 @@ export default class HomeScreen extends React.Component {
     _toggleModal = () =>
         this.setState({isModalVisible: !this.state.isModalVisible});
 
+    post = async () => {
+        console.log('calling api');
+        const response = await API.post('healthyMeApi', '/items', {
+            body: {
+                id: '1',
+                name: 'hello amplify!'
+            }
+        });
+        alert(JSON.stringify(response, null, 2));
+    };
+    get = async () => {
+        console.log('calling api');
+        const response = await API.get('healthyMeApi', '/items/object/1');
+        alert(JSON.stringify(response, null, 2));
+    };
+    list = async () => {
+        console.log('calling api');
+        const response = await API.get('healthyMeApi', '/items/1');
+        alert(JSON.stringify(response, null, 2));
+    };
+
     render() {
         return (
             <ScrollView style={styles.container}>
