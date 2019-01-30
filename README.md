@@ -23,7 +23,7 @@ expo start
 ## Running your react native on your Android or iOS devices
 This step will be divided into two: Android & iOS part.
 
-## Android
+### Android
 
 Download the Expo client app to your Android device.
 
