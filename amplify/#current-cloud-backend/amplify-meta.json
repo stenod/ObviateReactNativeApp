@@ -87,35 +87,6 @@
 		}
 	},
 	"function": {
-		"healthyMeLambdaFunction": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true,
-			"dependsOn": [
-				{
-					"category": "storage",
-					"resourceName": "healthyMe",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			],
-			"lastBuildTimeStamp": "2019-01-23T16:40:33.272Z",
-			"lastPackageTimeStamp": "2019-01-23T16:40:35.848Z",
-			"distZipFilename": "healthyMeLambdaFunction-1548261633-latest-build.zip",
-			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/function/healthyMeLambdaFunction-cloudformation-template.json",
-				"logicalId": "functionhealthyMeLambdaFunction"
-			},
-			"lastPushTimeStamp": "2019-01-23T17:52:28.692Z",
-			"output": {
-				"Region": "eu-central-1",
-				"Arn": "arn:aws:lambda:eu-central-1:946002890932:function:healthyMeLambdaFunction1",
-				"Name": "healthyMeLambdaFunction1"
-			},
-			"lastPushDirHash": "2c/D9hP9iTYc+ACs031I7+qCu+I="
-		},
 		"healthymed45f17cf": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",

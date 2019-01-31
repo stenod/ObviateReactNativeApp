@@ -1,146 +1,146 @@
 {
-	"providers": {
-		"awscloudformation": {
-			"AuthRoleName": "healthye-20181126121015-authRole",
-			"UnauthRoleArn": "arn:aws:iam::946002890932:role/healthye-20181126121015-unauthRole",
-			"AuthRoleArn": "arn:aws:iam::946002890932:role/healthye-20181126121015-authRole",
-			"Region": "eu-central-1",
-			"DeploymentBucketName": "healthye-20181126121015-deployment",
-			"UnauthRoleName": "healthye-20181126121015-unauthRole",
-			"StackName": "healthye-20181126121015",
-			"StackId": "arn:aws:cloudformation:eu-central-1:946002890932:stack/healthye-20181126121015/da2172e0-f16b-11e8-9c81-0ac7c3b3e9ea"
-		}
-	},
-	"auth": {
-		"cognitoace7675e": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/auth/cognitoace7675e-cloudformation-template.yml",
-				"logicalId": "authcognitoace7675e"
-			},
-			"lastPushTimeStamp": "2019-01-23T17:52:28.688Z",
-			"output": {
-				"IdentityPoolId": "eu-central-1:f68bc0fb-7d80-4481-a816-2f727ae7de4d",
-				"IdentityPoolName": "healthyme_identitypool_919ddc2a",
-				"AppClientSecret": "2v1os3jopqtihmmn79ccqmtb2stvolgfi9l91e2bmik2vjil3bc",
-				"UserPoolId": "eu-central-1_QD9wmX4S5",
-				"AppClientIDWeb": "1dm7jtk3etbv8mqobvbiosrlga",
-				"AppClientID": "7lbjsv35tgt38oab0qipd9bfo",
-				"UserPoolName": "cognitoace7675e_userpool_baa3208c"
-			},
-			"lastPushDirHash": "z426ItoT65tQld2WPHkRWUYEsfg=",
-			"[object Object]": {}
-		}
-	},
-	"analytics": {
-		"healthyme": {
-			"service": "Pinpoint",
-			"providerPlugin": "awscloudformation",
-			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
-				"logicalId": "analyticshealthyme"
-			},
-			"lastPushTimeStamp": "2019-01-23T17:52:28.689Z",
-			"output": {
-				"appName": "healthyme",
-				"Region": "us-east-1",
-				"Id": "597739686247443ba9d6b90e516a11d0"
-			},
-			"lastPushDirHash": "nU+zv+IxZdCC0FjSK/poTYChoAo="
-		}
-	},
-	"storage": {
-		"healthyMe": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation",
-			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/storage/healthyMe-cloudformation-template.json",
-				"logicalId": "storagehealthyMe"
-			},
-			"lastPushTimeStamp": "2019-01-23T17:52:28.691Z",
-			"output": {
-				"PartitionKeyName": "Id",
-				"Region": "eu-central-1",
-				"Arn": "arn:aws:dynamodb:eu-central-1:946002890932:table/userData",
-				"PartitionKeyType": "N",
-				"Name": "userData"
-			},
-			"lastPushDirHash": "L7ldYoEnMLOHLsigmb+TpNkP+BI="
-		},
-		"healthyMeStorage": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation",
-			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/storage/healthyMeStorage-cloudformation-template.json",
-				"logicalId": "storagehealthyMeStorage"
-			},
-			"lastPushTimeStamp": "2019-01-23T17:52:28.695Z",
-			"output": {
-				"PartitionKeyName": "id",
-				"Region": "eu-central-1",
-				"Arn": "arn:aws:dynamodb:eu-central-1:946002890932:table/healthyMeStorage",
-				"PartitionKeyType": "S",
-				"Name": "healthyMeStorage"
-			},
-			"lastPushDirHash": "9SapPPqvefILLZNwu9992sHRazM="
-		}
-	},
-	"function": {
-		"healthymed45f17cf": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true,
-			"dependsOn": [
-				{
-					"category": "storage",
-					"resourceName": "healthyMeStorage",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			],
-			"lastBuildTimeStamp": "2019-01-23T17:49:17.851Z",
-			"lastPackageTimeStamp": "2019-01-23T17:49:20.290Z",
-			"distZipFilename": "healthymed45f17cf-1548265757-latest-build.zip",
-			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/function/healthymed45f17cf-cloudformation-template.json",
-				"logicalId": "functionhealthymed45f17cf"
-			},
-			"lastPushTimeStamp": "2019-01-23T17:52:28.695Z",
-			"output": {
-				"Region": "eu-central-1",
-				"Arn": "arn:aws:lambda:eu-central-1:946002890932:function:healthymed45f17cf",
-				"Name": "healthymed45f17cf"
-			},
-			"lastPushDirHash": "KHelfL2CWeed/4WOCGP45D+AAuE="
-		}
-	},
-	"api": {
-		"healthyMeApi": {
-			"service": "API Gateway",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [
-				{
-					"category": "function",
-					"resourceName": "healthymed45f17cf",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			],
-			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/api/healthyMeApi-cloudformation-template.json",
-				"logicalId": "apihealthyMeApi"
-			},
-			"lastPushTimeStamp": "2019-01-23T17:52:28.695Z",
-			"output": {
-				"ApiName": "healthyMeApi",
-				"RootUrl": "https://0hc3fb4z1k.execute-api.eu-central-1.amazonaws.com/Prod"
-			},
-			"lastPushDirHash": "E3JUNv2w3yJ3HQp/uI8SV7U7bXE="
-		}
-	}
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "healthye-20181126121015-authRole",
+            "UnauthRoleArn": "arn:aws:iam::946002890932:role/healthye-20181126121015-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::946002890932:role/healthye-20181126121015-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "healthye-20181126121015-deployment",
+            "UnauthRoleName": "healthye-20181126121015-unauthRole",
+            "StackName": "healthye-20181126121015",
+            "StackId": "arn:aws:cloudformation:eu-central-1:946002890932:stack/healthye-20181126121015/da2172e0-f16b-11e8-9c81-0ac7c3b3e9ea"
+        }
+    },
+    "auth": {
+        "cognitoace7675e": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "providerMetadata": {
+                "s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/auth/cognitoace7675e-cloudformation-template.yml",
+                "logicalId": "authcognitoace7675e"
+            },
+            "lastPushTimeStamp": "2019-01-31T16:52:00.346Z",
+            "output": {
+                "IdentityPoolId": "eu-central-1:f68bc0fb-7d80-4481-a816-2f727ae7de4d",
+                "IdentityPoolName": "healthyme_identitypool_919ddc2a",
+                "AppClientSecret": "2v1os3jopqtihmmn79ccqmtb2stvolgfi9l91e2bmik2vjil3bc",
+                "UserPoolId": "eu-central-1_QD9wmX4S5",
+                "AppClientIDWeb": "1dm7jtk3etbv8mqobvbiosrlga",
+                "AppClientID": "7lbjsv35tgt38oab0qipd9bfo",
+                "UserPoolName": "cognitoace7675e_userpool_baa3208c"
+            },
+            "lastPushDirHash": "z426ItoT65tQld2WPHkRWUYEsfg=",
+            "[object Object]": {}
+        }
+    },
+    "analytics": {
+        "healthyme": {
+            "service": "Pinpoint",
+            "providerPlugin": "awscloudformation",
+            "providerMetadata": {
+                "s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+                "logicalId": "analyticshealthyme"
+            },
+            "lastPushTimeStamp": "2019-01-31T16:52:00.347Z",
+            "output": {
+                "appName": "healthyme",
+                "Region": "us-east-1",
+                "Id": "597739686247443ba9d6b90e516a11d0"
+            },
+            "lastPushDirHash": "nU+zv+IxZdCC0FjSK/poTYChoAo="
+        }
+    },
+    "storage": {
+        "healthyMe": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation",
+            "providerMetadata": {
+                "s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/storage/healthyMe-cloudformation-template.json",
+                "logicalId": "storagehealthyMe"
+            },
+            "lastPushTimeStamp": "2019-01-31T16:52:00.350Z",
+            "output": {
+                "PartitionKeyName": "Id",
+                "Region": "eu-central-1",
+                "Arn": "arn:aws:dynamodb:eu-central-1:946002890932:table/userData",
+                "PartitionKeyType": "N",
+                "Name": "userData"
+            },
+            "lastPushDirHash": "L7ldYoEnMLOHLsigmb+TpNkP+BI="
+        },
+        "healthyMeStorage": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation",
+            "providerMetadata": {
+                "s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/storage/healthyMeStorage-cloudformation-template.json",
+                "logicalId": "storagehealthyMeStorage"
+            },
+            "lastPushTimeStamp": "2019-01-31T16:52:00.350Z",
+            "output": {
+                "PartitionKeyName": "id",
+                "Region": "eu-central-1",
+                "Arn": "arn:aws:dynamodb:eu-central-1:946002890932:table/healthyMeStorage",
+                "PartitionKeyType": "S",
+                "Name": "healthyMeStorage"
+            },
+            "lastPushDirHash": "9SapPPqvefILLZNwu9992sHRazM="
+        }
+    },
+    "function": {
+        "healthymed45f17cf": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "healthyMeStorage",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ],
+            "lastBuildTimeStamp": "2019-01-23T17:49:17.851Z",
+            "lastPackageTimeStamp": "2019-01-23T17:49:20.290Z",
+            "distZipFilename": "healthymed45f17cf-1548265757-latest-build.zip",
+            "providerMetadata": {
+                "s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/function/healthymed45f17cf-cloudformation-template.json",
+                "logicalId": "functionhealthymed45f17cf"
+            },
+            "lastPushTimeStamp": "2019-01-31T16:52:00.352Z",
+            "output": {
+                "Region": "eu-central-1",
+                "Arn": "arn:aws:lambda:eu-central-1:946002890932:function:healthymed45f17cf",
+                "Name": "healthymed45f17cf"
+            },
+            "lastPushDirHash": "KHelfL2CWeed/4WOCGP45D+AAuE="
+        }
+    },
+    "api": {
+        "healthyMeApi": {
+            "service": "API Gateway",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "healthymed45f17cf",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ],
+            "providerMetadata": {
+                "s3TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/api/healthyMeApi-cloudformation-template.json",
+                "logicalId": "apihealthyMeApi"
+            },
+            "lastPushTimeStamp": "2019-01-31T16:52:00.352Z",
+            "output": {
+                "ApiName": "healthyMeApi",
+                "RootUrl": "https://0hc3fb4z1k.execute-api.eu-central-1.amazonaws.com/Prod"
+            },
+            "lastPushDirHash": "E3JUNv2w3yJ3HQp/uI8SV7U7bXE="
+        }
+    }
 }

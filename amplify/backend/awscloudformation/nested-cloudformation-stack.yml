@@ -167,26 +167,6 @@
 				}
 			}
 		},
-		"functionhealthyMeLambdaFunction": {
-			"Type": "AWS::CloudFormation::Stack",
-			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/function/healthyMeLambdaFunction-cloudformation-template.json",
-				"Parameters": {
-					"storagehealthyMeName": {
-						"Fn::GetAtt": [
-							"storagehealthyMe",
-							"Outputs.Name"
-						]
-					},
-					"storagehealthyMeArn": {
-						"Fn::GetAtt": [
-							"storagehealthyMe",
-							"Outputs.Arn"
-						]
-					}
-				}
-			}
-		},
 		"functionhealthymed45f17cf": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {

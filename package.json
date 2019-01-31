@@ -10,7 +10,10 @@
     "test": "node ./node_modules/jest/bin/jest.js --watchAll"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "modulePathIgnorePatterns": [
+      "/amplify/#current-cloud-backend"
+    ]
   },
   "dependencies": {
     "@babel/runtime": "^7.2.0",
@@ -22,7 +25,9 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-maps": "^0.22.1",
     "react-native-modal": "^7.0.1",
-    "react-navigation": "^2.18.2"
+    "react-navigation": "^2.18.2",
+    "metro": "latest",
+    "metro-config": "latest"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
