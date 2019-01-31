@@ -10,6 +10,17 @@ Install expo cli
 npm install expo-cli --global
 ```
 
+Install amplify
+
+```bash
+npm install --save aws-amplify
+```
+
+```bash
+npm install
+```
+
+
 use expo to run the app on a simulator or your phone with the following command
 
 ```bash
