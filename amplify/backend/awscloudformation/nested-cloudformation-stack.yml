@@ -187,6 +187,26 @@
 				}
 			}
 		},
+		"functionstimmung": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/function/stimmung-cloudformation-template.json",
+				"Parameters": {
+					"storagehealthyMeStorageName": {
+						"Fn::GetAtt": [
+							"storagehealthyMeStorage",
+							"Outputs.Name"
+						]
+					},
+					"storagehealthyMeStorageArn": {
+						"Fn::GetAtt": [
+							"storagehealthyMeStorage",
+							"Outputs.Arn"
+						]
+					}
+				}
+			}
+		},
 		"apihealthyMeApi": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
@@ -203,8 +223,46 @@
 							"functionhealthymed45f17cf",
 							"Outputs.Arn"
 						]
+					},
+					"functionstimmungName": {
+						"Fn::GetAtt": [
+							"functionstimmung",
+							"Outputs.Name"
+						]
+					},
+					"functionstimmungArn": {
+						"Fn::GetAtt": [
+							"functionstimmung",
+							"Outputs.Arn"
+						]
 					}
 				}
+			}
+		},
+		"apihealthyGraphQL": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"Parameters": {
+					"AppSyncApiName": "healthyGraphQL",
+					"AuthCognitoUserPoolId": {
+						"Fn::GetAtt": [
+							"authcognitoace7675e",
+							"Outputs.UserPoolId"
+						]
+					},
+					"schemaGraphql": "s3://healthye-20181126121015-deployment/amplify-appsync-files/schema.graphql.1549039517946",
+					"ResolverBucket": "healthye-20181126121015-deployment",
+					"ResolverRootKey": "amplify-appsync-files",
+					"DeploymentTimestamp": "1549039517946"
+				}
+			}
+		},
+		"hostingS3AndCloudFront": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/hosting/template.json",
+				"Parameters": {}
 			}
 		}
 	},

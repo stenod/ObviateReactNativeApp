@@ -20,13 +20,91 @@ import awsconfig from "../aws-exports";
 import Analytics from '@aws-amplify/analytics';
 import Modal from "react-native-modal";
 import RatingScreen from "../screens/RatingScreen"
-import { API, Auth } from 'aws-amplify';
+import { API, Auth , graphqlOperation } from 'aws-amplify';
+import Amplify from "aws-amplify-react-native";
+
+Amplify.configure(awsconfig);
+
+export const listUsers = `query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      username
+      userid
+      mood {
+        id
+        time
+        value
+      }
+      sleep {
+        id
+        time
+        value
+      }
+      activity {
+        id
+        time
+        value
+      }
+      stress {
+        id
+        time
+        value
+      }
+    }
+    nextToken
+  }
+}
+`;
+
+export const createActivity = `mutation CreateActivity($input: CreateActivityInput!) {
+  createActivity(input: $input) {
+    id
+    time
+    value
+  }
+}
+`;
+
+export const createUser = `mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input) {
+    id
+    username
+    userid
+    mood {
+      id
+      time
+      value
+    }
+    sleep {
+      id
+      time
+      value
+    }
+    activity {
+      id
+      time
+      value
+    }
+    stress {
+      id
+      time
+      value
+    }
+  }
+}
+`;
+
 
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.handleAnalyticsClick = this.handleAnalyticsClick.bind(this);
+        // this.handleAnalyticsClick = this.handleAnalyticsClick.bind(this);
 
         let userData = null;
         let timeStamp = Date.now();
@@ -52,7 +130,7 @@ export default class HomeScreen extends React.Component {
         this.setState({isModalVisible: !this.state.isModalVisible});
 
     post = async () => {
-        // this.setState({isModalVisible: false});
+        props.setState({isModalVisible: false});
         console.log('calling api');
         const response = await API.put('healthyMeApi', '/items', {
             body: {
@@ -74,19 +152,48 @@ export default class HomeScreen extends React.Component {
         alert(JSON.stringify(response, null, 2));
     };
 
+
+
+    todoMutation = async () => {
+        const todoDetails = {
+            input: {
+            userid: this.state.user.id,
+            username: this.state.user.username}
+        };
+        const newEvent = await API.graphql(graphqlOperation(createUser, todoDetails));
+        alert(JSON.stringify(newEvent));
+    };
+
+    createActivity = async () => {
+        const input = {
+            input: {time: "34534", value: "3"}
+        };
+        const newEvent = await API.graphql(graphqlOperation(createActivity, input));
+        alert(JSON.stringify(newEvent));
+    };
+
+    listQuery = async () => {
+        console.log('listing todos');
+        const allTodos = await API.graphql(graphqlOperation(listUsers));
+        alert(JSON.stringify(allTodos));
+    };
+
+
+
     render() {
         return (
             <ScrollView style={styles.container} contentContainerStyle={{ flexGrow: 1 }}>
                 <View style={styles.card}>
-                    <Button title="POST" onPress={this.post}/>
-                    <Button title="GET" onPress={this.get}/>
-                    <Button title="LIST" onPress={this.list}/>
+                <Button onPress={this.listQuery} title="GraphQL Query"/>
+                <Button onPress={this.todoMutation} title="GraphQL Mutation"/>
                 </View>
 
                 <View style={{flex: 1}}>
                     <Modal isVisible={this.state.isModalVisible}>
                         <View style={{flex: 1}}>
                             <RatingScreen/>
+                            <Button title={"Absenden"} onPress={this.post}>
+                            </Button>
                         </View>
                     </Modal>
                 </View>
@@ -194,24 +301,24 @@ export default class HomeScreen extends React.Component {
         );
     };
 
-    handleAnalyticsClick() {
-        Analytics.record('AWS Amplify Tutorial Event')
-            .then((evt) => {
-                const url = 'https://console.aws.amazon.com/pinpoint/home/?region=us-east-1#/apps/' + awsconfig.aws_mobile_analytics_app_id + '/analytics/events';
-                let result = (
-                    <View>
-                        <Text>Event Submitted.</Text>
-                        <Text>Events sent: {++this.state.eventsSent}</Text>
-                        <Text style={styles.link} onPress={() => Linking.openURL(url)}>
-                            View Events on the Amazon Pinpoint Console
-                        </Text>
-                    </View>
-                );
-                this.setState({
-                    'resultHtml': result
-                });
-            });
-    };
+    // handleAnalyticsClick() {
+    //     Analytics.record('AWS Amplify Tutorial Event')
+    //         .then((evt) => {
+    //             const url = 'https://console.aws.amazon.com/pinpoint/home/?region=us-east-1#/apps/' + awsconfig.aws_mobile_analytics_app_id + '/analytics/events';
+    //             let result = (
+    //                 <View>
+    //                     <Text>Event Submitted.</Text>
+    //                     <Text>Events sent: {++this.state.eventsSent}</Text>
+    //                     <Text style={styles.link} onPress={() => Linking.openURL(url)}>
+    //                         View Events on the Amazon Pinpoint Console
+    //                     </Text>
+    //                 </View>
+    //             );
+    //             this.setState({
+    //                 'resultHtml': result
+    //             });
+    //         });
+    // };
 }
 
 const size = 42;

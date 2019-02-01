@@ -1,5 +1,6 @@
 import React from 'react';
 import {PixelRatio, StyleSheet, Text, View, PanResponder, Animated, TouchableOpacity, Button} from 'react-native';
+import {API} from "aws-amplify";
 
 const REACTIONS = [
     {
@@ -16,6 +17,27 @@ const REACTIONS = [
     {label: "Happy", src: require('../assets/images/smile.png'), bigSrc: require('../assets/images/smile_big.png')},
     {
         label: "Surprised",
+        src: require('../assets/images/surprised.png'),
+        bigSrc: require('../assets/images/surprised_big.png')
+    },
+];
+
+
+const REACTIONS_Schlaf = [
+    {
+        label: "Lausig",
+        src: require('../assets/images/worried.png'),
+        bigSrc: require('../assets/images/worried_big.png')
+    },
+    {label: "Schlecht", src: require('../assets/images/sad.png'), bigSrc: require('../assets/images/sad_big.png')},
+    {
+        label: "Ok",
+        src: require('../assets/images/ambitious.png'),
+        bigSrc: require('../assets/images/ambitious_big.png')
+    },
+    {label: "Gut", src: require('../assets/images/smile.png'), bigSrc: require('../assets/images/smile_big.png')},
+    {
+        label: "Super",
         src: require('../assets/images/surprised.png'),
         bigSrc: require('../assets/images/surprised_big.png')
     },
@@ -165,8 +187,6 @@ export default class RatingScreen extends React.Component {
                         </Animated.View>
                     </View>
                 </View>
-                <Button title={"Absenden"} onPress={this.post}>
-                </Button>
             </View>
         );
     }
