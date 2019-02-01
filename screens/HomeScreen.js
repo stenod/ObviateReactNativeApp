@@ -29,9 +29,11 @@ export default class HomeScreen extends React.Component {
         this.handleAnalyticsClick = this.handleAnalyticsClick.bind(this);
 
         let userData = null;
+        let timeStamp = Date.now();
+        this.state = {resultHtml: <Text></Text>, eventsSent: 0, isModalVisible: false};
         Auth.currentUserInfo().then(user => userData = user)
             .catch(err => console.log(err)).finally(() =>
-            this.state = {resultHtml: <Text></Text>, eventsSent: 0,isModalVisible: false, user: userData});
+            this.state = {user: userData, time: timeStamp});
     };
 
     static navigationOptions = {
@@ -50,13 +52,12 @@ export default class HomeScreen extends React.Component {
         this.setState({isModalVisible: !this.state.isModalVisible});
 
     post = async () => {
-        this.setState({isModalVisible: false});
+        // this.setState({isModalVisible: false});
         console.log('calling api');
         const response = await API.put('healthyMeApi', '/items', {
             body: {
                 id: this.state.user.id,
-                username: this.state.user.username,
-                value1: {"Stimmung": [{stresslevel: 10}]},
+                stimmung: 5,
             }
         });
         alert(JSON.stringify(response, null, 2));
@@ -69,7 +70,7 @@ export default class HomeScreen extends React.Component {
     };
     list = async () => {
         console.log('calling api');
-        const response = await API.get('healthyMeApi', '/items/1');
+        const response = await API.get('healthyMeApi', '/items');
         alert(JSON.stringify(response, null, 2));
     };
 
@@ -81,6 +82,15 @@ export default class HomeScreen extends React.Component {
                     <Button title="GET" onPress={this.get}/>
                     <Button title="LIST" onPress={this.list}/>
                 </View>
+
+                <View style={{flex: 1}}>
+                    <Modal isVisible={this.state.isModalVisible}>
+                        <View style={{flex: 1}}>
+                            <RatingScreen/>
+                        </View>
+                    </Modal>
+                </View>
+
                 <View style={styles.card}>
                     <View style={{marginLeft: 15, alignSelf: 'flex-start'}}>
                         <Image style={{width: 50, height: 50, resizeMode: 'contain', alignSelf: 'stretch'}} source={require('../assets/images/purple.png')} />

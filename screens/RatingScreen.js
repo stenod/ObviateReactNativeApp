@@ -1,5 +1,5 @@
 import React from 'react';
-import { PixelRatio, StyleSheet, Text, View, PanResponder, Animated, TouchableOpacity } from 'react-native';
+import {PixelRatio, StyleSheet, Text, View, PanResponder, Animated, TouchableOpacity, Button} from 'react-native';
 
 const REACTIONS = [
     {
@@ -56,6 +56,7 @@ export default class RatingScreen extends React.Component {
 
     updatePan(toValue) {
         Animated.spring(this._pan, { toValue, friction: 7 }).start();
+        console.log(toValue)
     }
 
     render() {
@@ -164,6 +165,8 @@ export default class RatingScreen extends React.Component {
                         </Animated.View>
                     </View>
                 </View>
+                <Button title={"Absenden"} onPress={this.post}>
+                </Button>
             </View>
         );
     }
