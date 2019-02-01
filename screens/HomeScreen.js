@@ -27,8 +27,11 @@ export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.handleAnalyticsClick = this.handleAnalyticsClick.bind(this);
-        this.state = {resultHtml: <Text></Text>, eventsSent: 0,isModalVisible: false
-        };
+
+        let userData = null;
+        Auth.currentUserInfo().then(user => userData = user)
+            .catch(err => console.log(err)).finally(() =>
+            this.state = {resultHtml: <Text></Text>, eventsSent: 0,isModalVisible: false, user: userData});
     };
 
     static navigationOptions = {
@@ -49,17 +52,19 @@ export default class HomeScreen extends React.Component {
     post = async () => {
         this.setState({isModalVisible: false});
         console.log('calling api');
-        const response = await API.post('healthyMeApi', '/items', {
+        const response = await API.put('healthyMeApi', '/items', {
             body: {
-                id: "1",
-                value: {stresslevel: 4},
+                id: this.state.user.id,
+                username: this.state.user.username,
+                value1: {"Stimmung": [{stresslevel: 10}]},
             }
         });
         alert(JSON.stringify(response, null, 2));
     };
+
     get = async () => {
         console.log('calling api');
-        const response = await API.get('healthyMeApi', '/items/object/1');
+        const response = await API.get('healthyMeApi', '/items/object/' + this.state.user.id);
         alert(JSON.stringify(response, null, 2));
     };
     list = async () => {
