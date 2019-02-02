@@ -1,34 +1,24 @@
-type User {
-  id: ID!
-  username: String
-  userid: String
-  mood: [Mood]
-  sleep: [Sleep]
-  activity: [Activity]
-  stress: [Stress]
-}
-
 type Mood {
   id: ID!
-  time: String
+  user: String
   value: String
 }
 
 type Sleep {
   id: ID!
-  time: String
+  user: String
   value: String
 }
 
 type Activity {
   id: ID!
-  time: String
+  user: String
   value: String
 }
 
 type Stress {
   id: ID!
-  time: String
+  user: String
   value: String
 }
 
@@ -37,8 +27,8 @@ enum ModelSortDirection {
   DESC
 }
 
-type ModelUserConnection {
-  items: [User]
+type ModelMoodConnection {
+  items: [Mood]
   nextToken: String
 }
 
@@ -97,18 +87,16 @@ input ModelBooleanFilterInput {
   eq: Boolean
 }
 
-input ModelUserFilterInput {
+input ModelMoodFilterInput {
   id: ModelIDFilterInput
-  username: ModelStringFilterInput
-  userid: ModelStringFilterInput
-  and: [ModelUserFilterInput]
-  or: [ModelUserFilterInput]
-  not: ModelUserFilterInput
+  user: ModelStringFilterInput
+  value: ModelStringFilterInput
+  and: [ModelMoodFilterInput]
+  or: [ModelMoodFilterInput]
+  not: ModelMoodFilterInput
 }
 
 type Query {
-  getUser(id: ID!): User
-  listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection
   getMood(id: ID!): Mood
   listMoods(filter: ModelMoodFilterInput, limit: Int, nextToken: String): ModelMoodConnection
   getSleep(id: ID!): Sleep
@@ -119,25 +107,22 @@ type Query {
   listStresss(filter: ModelStressFilterInput, limit: Int, nextToken: String): ModelStressConnection
 }
 
-input CreateUserInput {
-  username: String
-  userid: String
+input CreateMoodInput {
+  user: String
+  value: String
 }
 
-input UpdateUserInput {
+input UpdateMoodInput {
   id: ID!
-  username: String
-  userid: String
+  user: String
+  value: String
 }
 
-input DeleteUserInput {
+input DeleteMoodInput {
   id: ID
 }
 
 type Mutation {
-  createUser(input: CreateUserInput!): User
-  updateUser(input: UpdateUserInput!): User
-  deleteUser(input: DeleteUserInput!): User
   createMood(input: CreateMoodInput!): Mood
   updateMood(input: UpdateMoodInput!): Mood
   deleteMood(input: DeleteMoodInput!): Mood
@@ -153,9 +138,6 @@ type Mutation {
 }
 
 type Subscription {
-  onCreateUser: User @aws_subscribe(mutations: ["createUser"])
-  onUpdateUser: User @aws_subscribe(mutations: ["updateUser"])
-  onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"])
   onCreateMood: Mood @aws_subscribe(mutations: ["createMood"])
   onUpdateMood: Mood @aws_subscribe(mutations: ["updateMood"])
   onDeleteMood: Mood @aws_subscribe(mutations: ["deleteMood"])
@@ -170,35 +152,6 @@ type Subscription {
   onDeleteStress: Stress @aws_subscribe(mutations: ["deleteStress"])
 }
 
-type ModelMoodConnection {
-  items: [Mood]
-  nextToken: String
-}
-
-input ModelMoodFilterInput {
-  id: ModelIDFilterInput
-  time: ModelStringFilterInput
-  value: ModelStringFilterInput
-  and: [ModelMoodFilterInput]
-  or: [ModelMoodFilterInput]
-  not: ModelMoodFilterInput
-}
-
-input CreateMoodInput {
-  time: String
-  value: String
-}
-
-input UpdateMoodInput {
-  id: ID!
-  time: String
-  value: String
-}
-
-input DeleteMoodInput {
-  id: ID
-}
-
 type ModelSleepConnection {
   items: [Sleep]
   nextToken: String
@@ -206,7 +159,7 @@ type ModelSleepConnection {
 
 input ModelSleepFilterInput {
   id: ModelIDFilterInput
-  time: ModelStringFilterInput
+  user: ModelStringFilterInput
   value: ModelStringFilterInput
   and: [ModelSleepFilterInput]
   or: [ModelSleepFilterInput]
@@ -214,13 +167,13 @@ input ModelSleepFilterInput {
 }
 
 input CreateSleepInput {
-  time: String
+  user: String
   value: String
 }
 
 input UpdateSleepInput {
   id: ID!
-  time: String
+  user: String
   value: String
 }
 
@@ -235,7 +188,7 @@ type ModelActivityConnection {
 
 input ModelActivityFilterInput {
   id: ModelIDFilterInput
-  time: ModelStringFilterInput
+  user: ModelStringFilterInput
   value: ModelStringFilterInput
   and: [ModelActivityFilterInput]
   or: [ModelActivityFilterInput]
@@ -243,13 +196,13 @@ input ModelActivityFilterInput {
 }
 
 input CreateActivityInput {
-  time: String
+  user: String
   value: String
 }
 
 input UpdateActivityInput {
   id: ID!
-  time: String
+  user: String
   value: String
 }
 
@@ -264,7 +217,7 @@ type ModelStressConnection {
 
 input ModelStressFilterInput {
   id: ModelIDFilterInput
-  time: ModelStringFilterInput
+  user: ModelStringFilterInput
   value: ModelStringFilterInput
   and: [ModelStressFilterInput]
   or: [ModelStressFilterInput]
@@ -272,13 +225,13 @@ input ModelStressFilterInput {
 }
 
 input CreateStressInput {
-  time: String
+  user: String
   value: String
 }
 
 input UpdateStressInput {
   id: ID!
-  time: String
+  user: String
   value: String
 }
 

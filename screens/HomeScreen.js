@@ -19,85 +19,15 @@ import {MonoText} from '../components/StyledText';
 import awsconfig from "../aws-exports";
 import Analytics from '@aws-amplify/analytics';
 import Modal from "react-native-modal";
-import RatingScreen from "../screens/RatingScreen"
+import MoodRatingModal from "./MoodRatingModal"
 import { API, Auth , graphqlOperation } from 'aws-amplify';
 import Amplify from "aws-amplify-react-native";
+import ActivityRatingModal from "./ActivityRatingModal";
+import SleepRatingModal from "./SleepRatingModal";
+import StressRatingModal from "./StressRatingModal";
+import {listMoods} from "../src/graphql/queries";
 
 Amplify.configure(awsconfig);
-
-export const listUsers = `query ListUsers(
-  $filter: ModelUserFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      username
-      userid
-      mood {
-        id
-        time
-        value
-      }
-      sleep {
-        id
-        time
-        value
-      }
-      activity {
-        id
-        time
-        value
-      }
-      stress {
-        id
-        time
-        value
-      }
-    }
-    nextToken
-  }
-}
-`;
-
-export const createActivity = `mutation CreateActivity($input: CreateActivityInput!) {
-  createActivity(input: $input) {
-    id
-    time
-    value
-  }
-}
-`;
-
-export const createUser = `mutation CreateUser($input: CreateUserInput!) {
-  createUser(input: $input) {
-    id
-    username
-    userid
-    mood {
-      id
-      time
-      value
-    }
-    sleep {
-      id
-      time
-      value
-    }
-    activity {
-      id
-      time
-      value
-    }
-    stress {
-      id
-      time
-      value
-    }
-  }
-}
-`;
 
 
 
@@ -108,7 +38,7 @@ export default class HomeScreen extends React.Component {
 
         let userData = null;
         let timeStamp = Date.now();
-        this.state = {resultHtml: <Text></Text>, eventsSent: 0, isModalVisible: false};
+        this.state = {resultHtml: <Text></Text>, eventsSent: 0, isMoodModalVisible: false,isActivityModalVisible: false,isSleepModalVisible: false,isStressModalVisible: false};
         Auth.currentUserInfo().then(user => userData = user)
             .catch(err => console.log(err)).finally(() =>
             this.state = {user: userData, time: timeStamp});
@@ -126,55 +56,26 @@ export default class HomeScreen extends React.Component {
     };
 
 
-    _toggleModal = () =>
-        this.setState({isModalVisible: !this.state.isModalVisible});
+    _toggleMoodModal = () =>
+        this.setState({isMoodModalVisible: !this.state.isMoodModalVisible});
+    _toggleActivityModal = () =>
+        this.setState({isActivityModalVisible: !this.state.isActivityModalVisible});
+    _toggleSleepModal = () =>
+        this.setState({isSleepModalVisible: !this.state.isSleepModalVisible});
+    _toggleStressModal = () =>
+        this.setState({isStressModalVisible: !this.state.isStressModalVisible});
 
-    post = async () => {
-        props.setState({isModalVisible: false});
-        console.log('calling api');
-        const response = await API.put('healthyMeApi', '/items', {
-            body: {
-                id: this.state.user.id,
-                stimmung: 5,
-            }
-        });
-        alert(JSON.stringify(response, null, 2));
-    };
-
-    get = async () => {
-        console.log('calling api');
-        const response = await API.get('healthyMeApi', '/items/object/' + this.state.user.id);
-        alert(JSON.stringify(response, null, 2));
-    };
-    list = async () => {
-        console.log('calling api');
-        const response = await API.get('healthyMeApi', '/items');
-        alert(JSON.stringify(response, null, 2));
-    };
-
-
-
-    todoMutation = async () => {
-        const todoDetails = {
-            input: {
-            userid: this.state.user.id,
-            username: this.state.user.username}
-        };
-        const newEvent = await API.graphql(graphqlOperation(createUser, todoDetails));
-        alert(JSON.stringify(newEvent));
-    };
-
-    createActivity = async () => {
-        const input = {
-            input: {time: "34534", value: "3"}
-        };
-        const newEvent = await API.graphql(graphqlOperation(createActivity, input));
-        alert(JSON.stringify(newEvent));
-    };
 
     listQuery = async () => {
         console.log('listing todos');
-        const allTodos = await API.graphql(graphqlOperation(listUsers));
+        const filter =
+            {
+                filter: {
+                    user: {contains: this.state.user.id},
+
+                }
+            };
+        const allTodos = await API.graphql(graphqlOperation(listMoods, filter));
         alert(JSON.stringify(allTodos));
     };
 
@@ -183,27 +84,37 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <ScrollView style={styles.container} contentContainerStyle={{ flexGrow: 1 }}>
-                <View style={styles.card}>
-                <Button onPress={this.listQuery} title="GraphQL Query"/>
-                <Button onPress={this.todoMutation} title="GraphQL Mutation"/>
-                </View>
-
                 <View style={{flex: 1}}>
-                    <Modal isVisible={this.state.isModalVisible}>
+                    <Modal isVisible={this.state.isMoodModalVisible}>
                         <View style={{flex: 1}}>
-                            <RatingScreen/>
-                            <Button title={"Absenden"} onPress={this.post}>
-                            </Button>
+                            <MoodRatingModal closeModal={this._toggleMoodModal}/>
                         </View>
                     </Modal>
                 </View>
+                <View style={{flex: 1}}>
+                    <Modal isVisible={this.state.isActivityModalVisible}>
+                        <View style={{flex: 1}}>
+                            <ActivityRatingModal closeModal={this._toggleActivityModal}/>
+                        </View>
+                    </Modal>
+                </View>
+                    <Modal isVisible={this.state.isSleepModalVisible}>
+                        <View style={{flex: 1}}>
+                            <SleepRatingModal closeModal={this._toggleSleepModal}/>
+                        </View>
+                    </Modal>
+                    <Modal isVisible={this.state.isStressModalVisible}>
+                        <View style={{flex: 1}}>
+                            <StressRatingModal closeModal={this._toggleStressModal}/>
+                        </View>
+                    </Modal>
 
                 <View style={styles.card}>
                     <View style={{marginLeft: 15, alignSelf: 'flex-start'}}>
                         <Image style={{width: 50, height: 50, resizeMode: 'contain', alignSelf: 'stretch'}} source={require('../assets/images/purple.png')} />
                     </View>
                     <View style={{ width: 120, alignSelf: 'flex-start'}}>
-                        <Button color="#000" title="Stimmung" style={styles.bold} onPress={this._toggleModal}/>
+                        <Button color="#000" title="Stimmung" style={styles.bold} onPress={this._toggleMoodModal}/>
                     </View>
                 </View>
 
@@ -212,7 +123,7 @@ export default class HomeScreen extends React.Component {
                         <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'stretch'}} source={require('../assets/images/yellow.png')} />
                     </View>
                     <View style={{ width: 120, alignSelf: 'flex-start'}}>
-                        <Button color="#000" title="Aktivität" style={styles.bold} onPress={this._toggleModal}/>
+                        <Button color="#000" title="Aktivität" style={styles.bold} onPress={this._toggleActivityModal}/>
                     </View>
                 </View>
 
@@ -221,7 +132,7 @@ export default class HomeScreen extends React.Component {
                         <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'flex-start'}} source={require('../assets/images/pink.png')} />
                     </View>
                     <View style={{ width: 120, alignSelf: 'flex-start'}}>
-                    <Button color="#000" title="Schlaf" style={styles.bold} onPress={this._toggleModal}/>
+                    <Button color="#000" title="Schlaf" style={styles.bold} onPress={this._toggleSleepModal}/>
                     </View>
                 </View>
 
@@ -230,7 +141,7 @@ export default class HomeScreen extends React.Component {
                         <Image style={{flex: 2, marginLeft: 2, width: 50, height: 50, resizeMode: 'contain', alignSelf: 'flex-start'}} source={require('../assets/images/orange.png')} />
                     </View>
                     <View style={{ width: 120, alignSelf: 'flex-start'}}>
-                        <Button color="#000" title="Stresspegel" style={styles.bold} onPress={this._toggleModal}/>
+                        <Button color="#000" title="Stresspegel" style={styles.bold} onPress={this._toggleStressModal}/>
                     </View>
                 </View>
 

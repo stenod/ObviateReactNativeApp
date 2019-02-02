@@ -1,6 +1,11 @@
 import React from 'react';
 import {PixelRatio, StyleSheet, Text, View, PanResponder, Animated, TouchableOpacity, Button} from 'react-native';
-import {API} from "aws-amplify";
+import Amplify, {Auth} from 'aws-amplify';
+import aws_exports from '../aws-exports';
+import { API , graphqlOperation } from 'aws-amplify';
+import {createMood} from "../src/graphql/mutations";
+
+Amplify.configure(aws_exports);
 
 const REACTIONS = [
     {
@@ -23,32 +28,18 @@ const REACTIONS = [
 ];
 
 
-const REACTIONS_Schlaf = [
-    {
-        label: "Lausig",
-        src: require('../assets/images/worried.png'),
-        bigSrc: require('../assets/images/worried_big.png')
-    },
-    {label: "Schlecht", src: require('../assets/images/sad.png'), bigSrc: require('../assets/images/sad_big.png')},
-    {
-        label: "Ok",
-        src: require('../assets/images/ambitious.png'),
-        bigSrc: require('../assets/images/ambitious_big.png')
-    },
-    {label: "Gut", src: require('../assets/images/smile.png'), bigSrc: require('../assets/images/smile_big.png')},
-    {
-        label: "Super",
-        src: require('../assets/images/surprised.png'),
-        bigSrc: require('../assets/images/surprised_big.png')
-    },
-];
 const WIDTH = 320;
 const DISTANCE =  WIDTH / REACTIONS.length;
 const END = WIDTH - DISTANCE;
 
-export default class RatingScreen extends React.Component {
+export default class MoodRatingModal extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {value: 2};
+        let userData = null;
+        Auth.currentUserInfo().then(user => userData = user)
+            .catch(err => console.log(err)).finally(() =>
+            this.state = {user: userData});
         this._pan = new Animated.Value(2 * DISTANCE);
     }
 
@@ -78,8 +69,27 @@ export default class RatingScreen extends React.Component {
 
     updatePan(toValue) {
         Animated.spring(this._pan, { toValue, friction: 7 }).start();
-        console.log(toValue)
+        let currentValue;
+        switch (toValue) {
+            case 0: currentValue = 0; break;
+            case 64: currentValue = 1; break;
+            case 128: currentValue =  2; break;
+            case 192: currentValue =  3;break;
+            case 265: currentValue =  4;break;
+        }
+        this.setState({value: currentValue})
     }
+
+    postMood = async () => {
+        const todoDetails = {
+            input: {
+                user: this.state.user.id,
+                value: this.state.value,
+            }};
+        const newEvent = await API.graphql(graphqlOperation(createMood, todoDetails));
+        this.props.closeModal();
+        alert(JSON.stringify(newEvent));
+    };
 
     render() {
         return (
@@ -187,7 +197,10 @@ export default class RatingScreen extends React.Component {
                         </Animated.View>
                     </View>
                 </View>
+                <Button title={"Absenden"} onPress={this.postMood}>
+                </Button>
             </View>
+
         );
     }
 }

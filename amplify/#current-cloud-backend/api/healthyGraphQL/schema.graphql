@@ -1,33 +1,25 @@
-type User @model {
-  id: ID!
-  username: String
-  userid: String
-  mood: [Mood]
-  sleep: [Sleep]
-  activity: [Activity]
-  stress: [Stress]
-}
+
 
 type Mood @model {
   id: ID!
-  time: String
+  user: String
   value: String
 }
 
 type Sleep @model {
   id: ID!
-  time: String
+  user: String
   value: String
 }
 
 type Activity @model {
   id: ID!
-  time: String
+  user: String
   value: String
 }
 
 type Stress @model {
   id: ID!
-  time: String
+  user: String
   value: String
 }
