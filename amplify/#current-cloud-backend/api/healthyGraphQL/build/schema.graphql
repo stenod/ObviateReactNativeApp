@@ -1,0 +1,287 @@
+type User {
+  id: ID!
+  username: String
+  userid: String
+  mood: [Mood]
+  sleep: [Sleep]
+  activity: [Activity]
+  stress: [Stress]
+}
+
+type Mood {
+  id: ID!
+  time: String
+  value: String
+}
+
+type Sleep {
+  id: ID!
+  time: String
+  value: String
+}
+
+type Activity {
+  id: ID!
+  time: String
+  value: String
+}
+
+type Stress {
+  id: ID!
+  time: String
+  value: String
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelUserConnection {
+  items: [User]
+  nextToken: String
+}
+
+input ModelStringFilterInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+}
+
+input ModelIDFilterInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+}
+
+input ModelIntFilterInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  contains: Int
+  notContains: Int
+  between: [Int]
+}
+
+input ModelFloatFilterInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  contains: Float
+  notContains: Float
+  between: [Float]
+}
+
+input ModelBooleanFilterInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelUserFilterInput {
+  id: ModelIDFilterInput
+  username: ModelStringFilterInput
+  userid: ModelStringFilterInput
+  and: [ModelUserFilterInput]
+  or: [ModelUserFilterInput]
+  not: ModelUserFilterInput
+}
+
+type Query {
+  getUser(id: ID!): User
+  listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection
+  getMood(id: ID!): Mood
+  listMoods(filter: ModelMoodFilterInput, limit: Int, nextToken: String): ModelMoodConnection
+  getSleep(id: ID!): Sleep
+  listSleeps(filter: ModelSleepFilterInput, limit: Int, nextToken: String): ModelSleepConnection
+  getActivity(id: ID!): Activity
+  listActivitys(filter: ModelActivityFilterInput, limit: Int, nextToken: String): ModelActivityConnection
+  getStress(id: ID!): Stress
+  listStresss(filter: ModelStressFilterInput, limit: Int, nextToken: String): ModelStressConnection
+}
+
+input CreateUserInput {
+  username: String
+  userid: String
+}
+
+input UpdateUserInput {
+  id: ID!
+  username: String
+  userid: String
+}
+
+input DeleteUserInput {
+  id: ID
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User
+  updateUser(input: UpdateUserInput!): User
+  deleteUser(input: DeleteUserInput!): User
+  createMood(input: CreateMoodInput!): Mood
+  updateMood(input: UpdateMoodInput!): Mood
+  deleteMood(input: DeleteMoodInput!): Mood
+  createSleep(input: CreateSleepInput!): Sleep
+  updateSleep(input: UpdateSleepInput!): Sleep
+  deleteSleep(input: DeleteSleepInput!): Sleep
+  createActivity(input: CreateActivityInput!): Activity
+  updateActivity(input: UpdateActivityInput!): Activity
+  deleteActivity(input: DeleteActivityInput!): Activity
+  createStress(input: CreateStressInput!): Stress
+  updateStress(input: UpdateStressInput!): Stress
+  deleteStress(input: DeleteStressInput!): Stress
+}
+
+type Subscription {
+  onCreateUser: User @aws_subscribe(mutations: ["createUser"])
+  onUpdateUser: User @aws_subscribe(mutations: ["updateUser"])
+  onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"])
+  onCreateMood: Mood @aws_subscribe(mutations: ["createMood"])
+  onUpdateMood: Mood @aws_subscribe(mutations: ["updateMood"])
+  onDeleteMood: Mood @aws_subscribe(mutations: ["deleteMood"])
+  onCreateSleep: Sleep @aws_subscribe(mutations: ["createSleep"])
+  onUpdateSleep: Sleep @aws_subscribe(mutations: ["updateSleep"])
+  onDeleteSleep: Sleep @aws_subscribe(mutations: ["deleteSleep"])
+  onCreateActivity: Activity @aws_subscribe(mutations: ["createActivity"])
+  onUpdateActivity: Activity @aws_subscribe(mutations: ["updateActivity"])
+  onDeleteActivity: Activity @aws_subscribe(mutations: ["deleteActivity"])
+  onCreateStress: Stress @aws_subscribe(mutations: ["createStress"])
+  onUpdateStress: Stress @aws_subscribe(mutations: ["updateStress"])
+  onDeleteStress: Stress @aws_subscribe(mutations: ["deleteStress"])
+}
+
+type ModelMoodConnection {
+  items: [Mood]
+  nextToken: String
+}
+
+input ModelMoodFilterInput {
+  id: ModelIDFilterInput
+  time: ModelStringFilterInput
+  value: ModelStringFilterInput
+  and: [ModelMoodFilterInput]
+  or: [ModelMoodFilterInput]
+  not: ModelMoodFilterInput
+}
+
+input CreateMoodInput {
+  time: String
+  value: String
+}
+
+input UpdateMoodInput {
+  id: ID!
+  time: String
+  value: String
+}
+
+input DeleteMoodInput {
+  id: ID
+}
+
+type ModelSleepConnection {
+  items: [Sleep]
+  nextToken: String
+}
+
+input ModelSleepFilterInput {
+  id: ModelIDFilterInput
+  time: ModelStringFilterInput
+  value: ModelStringFilterInput
+  and: [ModelSleepFilterInput]
+  or: [ModelSleepFilterInput]
+  not: ModelSleepFilterInput
+}
+
+input CreateSleepInput {
+  time: String
+  value: String
+}
+
+input UpdateSleepInput {
+  id: ID!
+  time: String
+  value: String
+}
+
+input DeleteSleepInput {
+  id: ID
+}
+
+type ModelActivityConnection {
+  items: [Activity]
+  nextToken: String
+}
+
+input ModelActivityFilterInput {
+  id: ModelIDFilterInput
+  time: ModelStringFilterInput
+  value: ModelStringFilterInput
+  and: [ModelActivityFilterInput]
+  or: [ModelActivityFilterInput]
+  not: ModelActivityFilterInput
+}
+
+input CreateActivityInput {
+  time: String
+  value: String
+}
+
+input UpdateActivityInput {
+  id: ID!
+  time: String
+  value: String
+}
+
+input DeleteActivityInput {
+  id: ID
+}
+
+type ModelStressConnection {
+  items: [Stress]
+  nextToken: String
+}
+
+input ModelStressFilterInput {
+  id: ModelIDFilterInput
+  time: ModelStringFilterInput
+  value: ModelStringFilterInput
+  and: [ModelStressFilterInput]
+  or: [ModelStressFilterInput]
+  not: ModelStressFilterInput
+}
+
+input CreateStressInput {
+  time: String
+  value: String
+}
+
+input UpdateStressInput {
+  id: ID!
+  time: String
+  value: String
+}
+
+input DeleteStressInput {
+  id: ID
+}

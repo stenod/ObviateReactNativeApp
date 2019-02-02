@@ -1,0 +1,5 @@
+{
+    "tableName": "healthyMeStorage",
+    "partitionKeyName": "id",
+    "partitionKeyType": "S"
+}

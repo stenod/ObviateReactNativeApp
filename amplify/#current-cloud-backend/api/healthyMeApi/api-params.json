@@ -1,0 +1,55 @@
+{
+    "paths": [
+        {
+            "name": "/items",
+            "lambdaFunction": "healthymed45f17cf",
+            "privacy": {
+                "private": true,
+                "auth": "rw"
+            }
+        },
+        {
+            "name": "/stimmung",
+            "lambdaFunction": "stimmung",
+            "privacy": {
+                "private": true,
+                "auth": "rw"
+            }
+        }
+    ],
+    "resourceName": "healthyMeApi",
+    "apiName": "healthyme229a6b51",
+    "functionArns": [
+        {
+            "lambdaFunction": "healthymed45f17cf"
+        },
+        {
+            "lambdaFunction": "stimmung"
+        }
+    ],
+    "privacy": {
+        "auth": 2,
+        "unauth": 0,
+        "authRoleName": "healthye-20181126121015-authRole",
+        "unAuthRoleName": "healthye-20181126121015-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "healthymed45f17cf",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "stimmung",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "1fc103cd"
+}
