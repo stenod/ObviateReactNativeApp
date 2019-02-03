@@ -25,11 +25,6 @@ export default class LinksScreen extends React.Component {
         });
     }
 
-    get = async () => {
-        const response = await API.get('healthyMeApi', '/items/object/' + this.state.user.id);
-        alert(JSON.stringify(response, null, 2));
-    };
-
 
 
     render() {
@@ -42,7 +37,7 @@ export default class LinksScreen extends React.Component {
                         <Image style={{width: 50, height: 50, resizeMode: 'contain', alignSelf: 'stretch'}} source={require('../assets/images/purple.png')} />
                     </View>
                     <View style={{ width: 120, alignSelf: 'flex-start'}}>
-                        <Button color="#000" title="Stimmung" style={styles.bold} onPress={this._toggleModal}/>
+                        {/*<Button color="#000" title="Stimmung" style={styles.bold} onPress={}/>*/}
                     </View>
                 </View>
             </ScrollView>

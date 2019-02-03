@@ -31,16 +31,17 @@ const REACTIONS = [
 const WIDTH = 320;
 const DISTANCE =  WIDTH / REACTIONS.length;
 const END = WIDTH - DISTANCE;
+let userId;
+let value = 2;
+
 
 export default class MoodRatingModal extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: 2, visible: false};
-        let userData = null;
-        Auth.currentUserInfo().then(user => userData = user)
-            .catch(err => console.log(err)).finally(() =>
-            this.state = {user: userData, visible: true});
+        Auth.currentUserInfo().then(user => userId = user)
+            .catch(err => console.log(err));
         this._pan = new Animated.Value(2 * DISTANCE);
+        this.postStress = this.postStress.bind(this)
     }
 
     componentWillMount() {
@@ -68,15 +69,13 @@ export default class MoodRatingModal extends React.Component {
     }
 
     postStress = async () => {
-        console.log(this.state.user.id);
         const todoDetails = {
             input: {
-                user: this.state.user.id,
-                value: this.state.value,
+                user: userId,
+                value: value,
             }};
-        const newEvent = await API.graphql(graphqlOperation(createStress, todoDetails));
+        await API.graphql(graphqlOperation(createStress, todoDetails)).catch(err => console.log(err));
         this.props.closeModal();
-        alert(JSON.stringify(newEvent));
     };
 
     updatePan(toValue) {
@@ -89,7 +88,7 @@ export default class MoodRatingModal extends React.Component {
             case 192: currentValue =  3;break;
             case 265: currentValue =  4;break;
         }
-        this.setState({value: currentValue})
+        value = currentValue;
     }
 
     render() {
@@ -198,7 +197,7 @@ export default class MoodRatingModal extends React.Component {
                         </Animated.View>
                     </View>
                 </View>
-                <View isVisible={this.state.visible} >
+                <View>
                     <Button title={"Absenden"} onPress={this.postStress}>
                     </Button>
                 </View>

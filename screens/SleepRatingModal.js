@@ -30,16 +30,17 @@ const REACTIONS = [
 const WIDTH = 320;
 const DISTANCE =  WIDTH / REACTIONS.length;
 const END = WIDTH - DISTANCE;
+let userId;
+let value = 2;
+
 
 export default class MoodRatingModal extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: 2};
-        let userData = null;
-        Auth.currentUserInfo().then(user => userData = user)
-            .catch(err => console.log(err)).finally(() =>
-            this.state = {user: userData});
+        Auth.currentUserInfo().then(user => userId = user)
+            .catch(err => console.log(err));
         this._pan = new Animated.Value(2 * DISTANCE);
+        this.postSleep = this.postSleep.bind(this)
     }
 
     componentWillMount() {
@@ -69,12 +70,11 @@ export default class MoodRatingModal extends React.Component {
     postSleep = async () => {
         const todoDetails = {
             input: {
-                user: this.state.user.id,
-                value: this.state.value,
+                user: userId,
+                value: value,
             }};
-        const newEvent = await API.graphql(graphqlOperation(createSleep, todoDetails));
+        await API.graphql(graphqlOperation(createSleep, todoDetails)).catch(err => console.log(err));
         this.props.closeModal();
-        alert(JSON.stringify(newEvent));
     };
 
     updatePan(toValue) {
@@ -87,7 +87,7 @@ export default class MoodRatingModal extends React.Component {
             case 192: currentValue =  3;break;
             case 265: currentValue =  4;break;
         }
-        this.setState({value: currentValue})
+        value = currentValue;
     }
 
     render() {
