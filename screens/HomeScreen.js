@@ -66,20 +66,6 @@ export default class HomeScreen extends React.Component {
         this.setState({isStressModalVisible: !this.state.isStressModalVisible});
 
 
-    listQuery = async () => {
-        console.log('listing todos');
-        const filter =
-            {
-                filter: {
-                    user: {contains: this.state.user.id},
-
-                }
-            };
-        const allTodos = await API.graphql(graphqlOperation(listMoods, filter));
-        alert(JSON.stringify(allTodos));
-    };
-
-
 
     render() {
         return (

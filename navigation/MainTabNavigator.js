@@ -25,7 +25,7 @@ HomeStack.navigationOptions = {
     tabBarOptions: {
         activeTintColor: 'white',
             style: {
-                height: 80,
+                height: 70,
             backgroundColor: 'black',
 
         },

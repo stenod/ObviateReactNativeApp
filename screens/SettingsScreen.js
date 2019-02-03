@@ -19,7 +19,7 @@ export default class SettingsScreen extends React.Component {
 
     logout = () => {
         Auth.signOut({global: true})
-            .then(data => this.setState({logout: true}))
+            .then(data => this.props.navigation.reset())
             .catch(err => console.log(err));
 
     };
