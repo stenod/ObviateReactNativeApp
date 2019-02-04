@@ -20,8 +20,8 @@ import awsconfig from "../aws-exports";
 import Analytics from '@aws-amplify/analytics';
 import Modal from "react-native-modal";
 import MoodRatingModal from "./MoodRatingModal"
-import { API, Auth , graphqlOperation } from 'aws-amplify';
-import Amplify from "aws-amplify-react-native";
+import Amplify, { API, Auth , graphqlOperation } from 'aws-amplify';
+// import Amplify from "aws-amplify-react-native";
 import ActivityRatingModal from "./ActivityRatingModal";
 import SleepRatingModal from "./SleepRatingModal";
 import StressRatingModal from "./StressRatingModal";
