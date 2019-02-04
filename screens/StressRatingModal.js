@@ -9,19 +9,19 @@ Amplify.configure(aws_exports);
 
 const REACTIONS = [
     {
-        label: "Worried",
+        label: "Extrem",
         src: require('../assets/images/worried.png'),
         bigSrc: require('../assets/images/worried_big.png')
     },
-    {label: "Sad", src: require('../assets/images/sad.png'), bigSrc: require('../assets/images/sad_big.png')},
+    {label: "Deutlich", src: require('../assets/images/sad.png'), bigSrc: require('../assets/images/sad_big.png')},
     {
-        label: "Strong",
+        label: "Ok",
         src: require('../assets/images/ambitious.png'),
         bigSrc: require('../assets/images/ambitious_big.png')
     },
-    {label: "Happy", src: require('../assets/images/smile.png'), bigSrc: require('../assets/images/smile_big.png')},
+    {label: "Etwas", src: require('../assets/images/smile.png'), bigSrc: require('../assets/images/smile_big.png')},
     {
-        label: "Surprised",
+        label: "Kaum",
         src: require('../assets/images/surprised.png'),
         bigSrc: require('../assets/images/surprised_big.png')
     },

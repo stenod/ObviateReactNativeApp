@@ -26,6 +26,7 @@ import ActivityRatingModal from "./ActivityRatingModal";
 import SleepRatingModal from "./SleepRatingModal";
 import StressRatingModal from "./StressRatingModal";
 import {listMoods} from "../src/graphql/queries";
+import Dialog, { SlideAnimation, DialogContent ,DialogFooter, DialogButton } from 'react-native-popup-dialog';
 
 Amplify.configure(awsconfig);
 
@@ -38,7 +39,7 @@ export default class HomeScreen extends React.Component {
 
         let userData = null;
         let timeStamp = Date.now();
-        this.state = {resultHtml: <Text></Text>, eventsSent: 0, isMoodModalVisible: false,isActivityModalVisible: false,isSleepModalVisible: false,isStressModalVisible: false};
+        this.state = {resultHtml: <Text></Text>, eventsSent: 0, isMoodModalVisible: false,isActivityModalVisible: false,isSleepModalVisible: false,isStressModalVisible: false, visible: true};
         Auth.currentUserInfo().then(user => userData = user)
             .catch(err => console.log(err)).finally(() =>
             this.state = {user: userData, time: timeStamp});
@@ -70,6 +71,31 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <ScrollView style={styles.container} contentContainerStyle={{ flexGrow: 1 }}>
+
+                <View style={styles.container}>
+                    <Dialog
+                        visible={this.state.visible}
+                        dialogAnimation={new SlideAnimation({
+                            slideFrom: 'bottom',
+                        })}
+                        footer={
+                            <DialogFooter>
+                                <DialogButton
+                                    text="OK"
+                                    onPress={() => {this.setState({visible: false})}}
+                                />
+                            </DialogFooter>
+                        }>
+                        <DialogContent>
+                            <View style={styles.contentContainer}>
+                                <Text style={styles.developmentModeText}>
+                                    Bitte wählen sie die Kategorie, die Sie tracken möchten
+                                </Text>
+                            </View>
+                        </DialogContent>
+                    </Dialog>
+                </View>
+
                 <View style={{flex: 1}}>
                     <Modal isVisible={this.state.isMoodModalVisible}>
                         <View style={{flex: 1}}>

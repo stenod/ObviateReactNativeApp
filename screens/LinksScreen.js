@@ -47,7 +47,7 @@ const style = {
 };
 
 // each value represents a goal ring in Progress chart
-const dataProgress = [0.4, 0.6, 0.8];
+let dataProgress = [0.4];
 
 const commitsData = [
     {date: '2019-01-25', count: 1},
@@ -104,8 +104,9 @@ export default class LinksScreen extends React.Component {
     _subscribe = () => {
         this._subscription = Pedometer.watchStepCount(result => {
             this.setState({
-                currentStepCount: result.steps
-            });
+                currentStepCount: result.steps,
+        });
+            dataProgress = [10000/result.steps]
         });
 
         Pedometer.isAvailableAsync().then(
@@ -287,7 +288,7 @@ export default class LinksScreen extends React.Component {
                     {/*/>*/}
                 {/*</View>*/}
                 <View>
-                    <Text style={styles.tabBarInfoText}>Depressionsmeter</Text>
+                    <Text style={styles.tabBarInfoText}>Schrittmeter {this.state.currentStepCount} von 10000</Text>
                     <ProgressChart
                         data={dataProgress}
                         width={screenWidth}
@@ -295,15 +296,6 @@ export default class LinksScreen extends React.Component {
                         chartConfig={chartConfig}
                         style={style}
                     />
-                </View>
-                <Text style={styles.tabBarInfoText}>Aktivität</Text>
-                <View>
-                    <View style={styles.container}>
-                        <Text style={styles.tabBarInfoText}>
-                            Steps taken in the last 24 hours: {this.state.pastStepCount}
-                        </Text>
-                        <Text style={styles.tabBarInfoText}>Walk! And watch this go up: {this.state.currentStepCount}</Text>
-                    </View>
                 </View>
                 <BlurView>
                     <ContributionGraph
