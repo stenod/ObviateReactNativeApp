@@ -9,19 +9,19 @@ Amplify.configure(aws_exports);
 
 const REACTIONS = [
     {
-        label: "Worried",
+        label: "Keine",
         src: require('../assets/images/worried.png'),
         bigSrc: require('../assets/images/worried_big.png')
     },
-    {label: "Sad", src: require('../assets/images/sad.png'), bigSrc: require('../assets/images/sad_big.png')},
+    {label: "Etwas", src: require('../assets/images/sad.png'), bigSrc: require('../assets/images/sad_big.png')},
     {
-        label: "Strong",
+        label: "Mittel",
         src: require('../assets/images/ambitious.png'),
         bigSrc: require('../assets/images/ambitious_big.png')
     },
-    {label: "Happy", src: require('../assets/images/smile.png'), bigSrc: require('../assets/images/smile_big.png')},
+    {label: "Mehr", src: require('../assets/images/smile.png'), bigSrc: require('../assets/images/smile_big.png')},
     {
-        label: "Surprised",
+        label: "Stark",
         src: require('../assets/images/surprised.png'),
         bigSrc: require('../assets/images/surprised_big.png')
     },
@@ -95,7 +95,7 @@ export default class MoodRatingModal extends React.Component {
             <View style={styles.container}>
                 <View style={styles.wrap}>
                     <Text style={styles.welcome}>
-                        How are you feeling?
+                        Wie schätzen sie ihre Aktivität für heute ein?
                     </Text>
 
                     <View style={styles.line} />
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     welcome: {
         fontSize: 18,
         textAlign: 'center',
-        color: '#777',
+        color: '#ffffff',
         fontWeight: '600',
         fontFamily: 'space-mono',
         marginBottom: 50,
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     reactionText: {
         fontSize: 12,
         textAlign: 'center',
-        color: '#999',
+        color: '#ffffff',
         fontWeight: '400',
         fontFamily: 'space-mono',
         marginTop: 5,

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button, Image, ScrollView, StyleSheet, View, Text, Platform} from 'react-native';
-import {ExpoLinksView} from '@expo/samples';
 import Amplify, {API, Auth, graphqlOperation} from "aws-amplify";
 import {
     LineChart,
@@ -11,9 +10,7 @@ import {
 } from 'react-native-chart-kit'
 import {Dimensions} from 'react-native'
 import {listMoods} from "../src/graphql/queries";
-import BlurView from "expo/build/effects/BlurView.ios";
 import awsconfig from "../aws-exports";
-import WelcomeText from "react-native/local-cli/templates/HelloNavigation/views/welcome/WelcomeText.android";
 import { Pedometer } from "expo";
 
 Amplify.configure(awsconfig);
@@ -31,9 +28,9 @@ const data = {
 };
 
 const chartConfig = {
-    backgroundColor: '#e26a00',
-    backgroundGradientFrom: '#fb8c00',
-    backgroundGradientTo: '#ffa726',
+    backgroundColor: '#9013fe',
+    backgroundGradientFrom: '#ff7888',
+    backgroundGradientTo: '#ff7888',
     decimalPlaces: 2, // optional, defaults to 2dp
     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
     style: {
@@ -187,7 +184,15 @@ export default class LinksScreen extends React.Component {
                                 }}
                                 width={Dimensions.get('window').width} // from react-native
                                 height={220}
-                                chartConfig={chartConfig}
+                                chartConfig={{
+                                    backgroundColor: '#ffffff',
+                                    backgroundGradientFrom: '#ffffff',
+                                    backgroundGradientTo: '#ffffff',
+                                    decimalPlaces: 2, // optional, defaults to 2dp
+                                    color: (opacity = 1) => `rgba(160, 181, 255)`,
+                                    style: {
+                                        borderRadius: 16
+                                    }}}
                                 bezier
                                 style={style}
                             />
@@ -211,7 +216,15 @@ export default class LinksScreen extends React.Component {
                         }}
                         width={Dimensions.get('window').width} // from react-native
                         height={220}
-                        chartConfig={chartConfig}
+                        chartConfig={{
+                        backgroundColor: '#ffffff',
+                        backgroundGradientFrom: '#ffffff',
+                        backgroundGradientTo: '#ffffff',
+                        decimalPlaces: 2, // optional, defaults to 2dp
+                        color: (opacity = 1) => `rgba(239, 219, 0)`,
+                        style: {
+                        borderRadius: 16
+                    }}}
                         bezier
                         style={style}
                     />
@@ -235,7 +248,15 @@ export default class LinksScreen extends React.Component {
                         }}
                         width={Dimensions.get('window').width} // from react-native
                         height={220}
-                        chartConfig={chartConfig}
+                        chartConfig={{
+                            backgroundColor: '#ffffff',
+                            backgroundGradientFrom: '#ffffff',
+                            backgroundGradientTo: '#ffffff',
+                            decimalPlaces: 2, // optional, defaults to 2dp
+                            color: (opacity = 1) => `rgba(215, 114, 255)`,
+                            style: {
+                                borderRadius: 16
+                            }}}
                         bezier
                         style={style}
                     />
@@ -259,7 +280,15 @@ export default class LinksScreen extends React.Component {
                         }}
                         width={Dimensions.get('window').width} // from react-native
                         height={220}
-                        chartConfig={chartConfig}
+                        chartConfig={{
+                            backgroundColor: '#ffffff',
+                            backgroundGradientFrom: '#ffffff',
+                            backgroundGradientTo: '#ffffff',
+                            decimalPlaces: 2, // optional, defaults to 2dp
+                            color: (opacity = 1) => `rgba(255, 120, 136)`,
+                            style: {
+                                borderRadius: 16
+                            }}}
                         bezier
                         style={style}
                     />
@@ -270,7 +299,15 @@ export default class LinksScreen extends React.Component {
                         data={dataPie}
                         width={screenWidth}
                         height={220}
-                        chartConfig={chartConfig}
+                        chartConfig={{
+                            backgroundColor: '#ffffff',
+                            backgroundGradientFrom: '#ffffff',
+                            backgroundGradientTo: '#ffffff',
+                            decimalPlaces: 2, // optional, defaults to 2dp
+                            color: (opacity = 1) => `rgba(239, 219, 0)`,
+                            style: {
+                                borderRadius: 16
+                            }}}
                         accessor="population"
                         backgroundColor="transparent"
                         paddingLeft="15"
@@ -297,7 +334,8 @@ export default class LinksScreen extends React.Component {
                         style={style}
                     />
                 </View>
-                <BlurView>
+                <View>
+                    <Text style={styles.tabBarInfoText}>Trackzähler</Text>
                     <ContributionGraph
                         values={commitsData}
                         endDate={new Date('2019-02-04')}
@@ -307,7 +345,7 @@ export default class LinksScreen extends React.Component {
                         chartConfig={chartConfig}
                         style={style}
                     />
-                </BlurView>
+                </View>
 
             </ScrollView>
 
@@ -386,7 +424,7 @@ const styles = StyleSheet.create({
     },
     tabBarInfoText: {
         fontSize: 17,
-        color: 'rgba(96,100,109, 1)',
+        color: '#fff',
         textAlign: 'center',
     },
     navigationFilename: {

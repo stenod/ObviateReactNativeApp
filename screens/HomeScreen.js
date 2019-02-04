@@ -87,7 +87,7 @@ export default class HomeScreen extends React.Component {
                             </DialogFooter>
                         }>
                         <DialogContent>
-                            <View style={styles.contentContainer}>
+                            <View style={styles.contentContainer }>
                                 <Text style={styles.developmentModeText}>
                                     Bitte wählen sie die Kategorie, die Sie tracken möchten
                                 </Text>
@@ -365,7 +365,6 @@ const styles = StyleSheet.create({
     },
     bold: {
         fontWeight: 'bold',
-        color: '#000',
         textAlignVertical: 'center',
     }
 });

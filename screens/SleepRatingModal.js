@@ -95,7 +95,7 @@ export default class MoodRatingModal extends React.Component {
             <View style={styles.container}>
                 <View style={styles.wrap}>
                     <Text style={styles.welcome}>
-                        How are you feeling?
+                        Wie haben sie letze Nacht geschlafen?
                     </Text>
 
                     <View style={styles.line} />
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     welcome: {
         fontSize: 18,
         textAlign: 'center',
-        color: '#777',
+        color: '#ffffff',
         fontWeight: '600',
         fontFamily: 'space-mono',
         marginBottom: 50,
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     reactionText: {
         fontSize: 12,
         textAlign: 'center',
-        color: '#999',
+        color: '#ffffff',
         fontWeight: '400',
         fontFamily: 'space-mono',
         marginTop: 5,
