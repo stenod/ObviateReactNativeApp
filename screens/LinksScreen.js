@@ -151,7 +151,7 @@ export default class LinksScreen extends React.Component {
                     }
                 };
             allTodos = await API.graphql(graphqlOperation(listMoods, filter)).catch(err => console.log(err));
-            allTodos.data.listMoods.items.forEach(function (currentValue, index, arr) {
+            allTodos.data.listMoods.items.forEach(function (currentValue) {
                 console.log(JSON.stringify(currentValue.value));
                 last(commitsData).count = last(commitsData).count + 1
             });

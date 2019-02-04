@@ -251,18 +251,11 @@
 							"Outputs.UserPoolId"
 						]
 					},
-					"schemaGraphql": "s3://healthye-20181126121015-deployment/amplify-appsync-files/schema.graphql.1549124674977",
+					"schemaGraphql": "s3://healthye-20181126121015-deployment/amplify-appsync-files/schema.graphql.1549283278865",
 					"ResolverBucket": "healthye-20181126121015-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1549124674977"
+					"DeploymentTimestamp": "1549283278865"
 				}
-			}
-		},
-		"hostingS3AndCloudFront": {
-			"Type": "AWS::CloudFormation::Stack",
-			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/healthye-20181126121015-deployment/amplify-cfn-templates/hosting/template.json",
-				"Parameters": {}
 			}
 		}
 	},
