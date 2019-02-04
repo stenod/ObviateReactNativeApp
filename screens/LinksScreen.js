@@ -288,7 +288,7 @@ export default class LinksScreen extends React.Component {
                     {/*/>*/}
                 {/*</View>*/}
                 <View>
-                    <Text style={styles.tabBarInfoText}>Schrittmeter {this.state.currentStepCount} von 10000</Text>
+                    <Text style={styles.tabBarInfoText}>Schrittmeter {this.state.pastStepCount} von 10000</Text>
                     <ProgressChart
                         data={dataProgress}
                         width={screenWidth}
